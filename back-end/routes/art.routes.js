@@ -1,5 +1,7 @@
 const router = require('express').Router()
+
 const Art = require('./../models/Art.model')
+
 
 // All routes prefixed by '/api/artPiece
 
@@ -11,6 +13,7 @@ router.get('/', async (req, res, next) => {
         description: req.query.description,
         title: req.query.title,
         date: req.query.date,
+        artist: req.query.artist,
     }
     if (!query.art) {
         delete query.art
@@ -23,6 +26,9 @@ router.get('/', async (req, res, next) => {
     }
     if (!query.date) {
         delete query.date
+    }
+    if (!query.artist) {
+        delete query.artist
     }
     try {
         const artPiece = await Art.find(query)
@@ -47,8 +53,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const { art, description, title, date } = req.body
-        const createdArt = await Art.create({ art, description, title, date })
+        const { art, description, title, date, artist } = req.body
+        const createdArt = await Art.create({ art, description, title, date, artist })
         res.status(201).json(createdArt)
     } catch (error) {
         next(error)
@@ -60,11 +66,11 @@ router.post('/', async (req, res, next) => {
 router.patch('/:id', async (req, res, next) => {
     try {
         const { id } = req.params
-        const { art, description, title, date } = req.body
+        const { art, description, title, date, artist } = req.body
 
         const updatedArt = await Art.findByIdAndUpdate(
             id,
-            {art, description, title, date},
+            {art, description, title, date, artist},
             { new: true }
         ) 
         res.status(202).json(updatedArt)
