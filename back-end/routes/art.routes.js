@@ -7,7 +7,8 @@ const Art = require('./../models/Art.model')
 
 // All routes prefixed by '/api/artPiece
 
-// GET Art
+// GET Art 
+//ROUTE NOT PROTECTED
 
 router.get('/', async (req, res, next) => {
     const query = {
@@ -36,7 +37,9 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-// GET one art piece
+// GET one art piece  
+//ROUTE NOT PROTECTED
+
 
 router.get('/:id', async (req, res, next) => {
     try {
@@ -47,12 +50,16 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+
+
 router.use(isAuthenticated)
 router.use(isArtist)
 
 
 
 // Create one art piece
+//ROUTE PROTECTED isArtist = true
+
 
 
 router.post('/', async (req, res, next) => {
