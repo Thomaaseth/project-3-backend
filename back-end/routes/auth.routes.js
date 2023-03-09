@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const jsonWebToken = require('jsonwebtoken')
+const isAuthenticated = require ('../middlewares/isAuthenticated.js')
 const User = require('./../models/User.model')
 
 // All routes prefixed by /api/auth
