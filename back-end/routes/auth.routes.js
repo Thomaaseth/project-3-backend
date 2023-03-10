@@ -27,7 +27,7 @@ router.post('/signup', async (req, res, next) => {
                 .status(400)
                 .json({ message: 'An account associated to this email already exists. Please use login.' })
         }
-        const generatedSalt = await bcrypth.genSalt(10)
+        const generatedSalt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, generatedSalt)
 
         await User.create({

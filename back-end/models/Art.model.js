@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose')
 
-const artSchema = new Schema (
+const artSchema = new Schema(
     {
         art: {
             type: String,
@@ -11,7 +11,7 @@ const artSchema = new Schema (
             maxLength: 1000,
         },
         title: {
-            type: String,            
+            type: String,
         },
         date: {
             type: Date,
