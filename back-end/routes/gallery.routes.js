@@ -1,18 +1,18 @@
-const router = require('express').Router()
-const Art = require('./../models/Art.model')
+// const router = require('express').Router()
+// const Art = require('./../models/Art.model')
 
 
-// GET all art pieces to display in gallery
+// // GET all art pieces to display in gallery
 
-router.get('/gallery', async (req, res, next) => {
-    try {
-        const allArt = await Art.find()
-        res.json(allArt)
-    } catch (error) {
-        next(error)
-    }
-})
+// router.get('/gallery', async (req, res, next) => {
+//     try {
+//         const allArt = await Art.find()
+//         res.json(allArt)
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
-// pagination
+// // pagination
 
-module.exports = router
+// module.exports = router

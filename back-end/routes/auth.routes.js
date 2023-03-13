@@ -9,7 +9,7 @@ const User = require('./../models/User.model')
 router.post('/signup', async (req, res, next) => {
     const { email, username, password, isArtist } = req.body
 
-    if (!username || !password || !email || !isArtist) {
+    if (!username || !password || !email) {
         return res
             .status(400)
             .json({ message: 'Please fill all requider fields' })
@@ -81,6 +81,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.get('/profile', isAuthenticated, async (req, res, next) => {
+    console.log(req.user)
     res.json(req.user)
 })
 
