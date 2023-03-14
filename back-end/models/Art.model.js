@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 
 const artSchema = new Schema(
     {
-        art: {
+        image: {
             type: String,
         },
         description: {

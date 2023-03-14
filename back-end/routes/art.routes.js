@@ -3,7 +3,7 @@ const router = require('express').Router()
 const isArtist = require('../middlewares/isArtist')
 const isAuthenticated = require('../middlewares/isAuthenticated')
 const Art = require('./../models/Art.model')
-
+const fileUpload = require('./../config/cloudinary-config')
 
 // All routes prefixed by '/api/artPiece
 
@@ -62,10 +62,12 @@ router.use(isArtist)
 
 
 
-router.post('/', async (req, res, next) => {
+router.post('/', fileUpload.single('image'), async (req, res, next) => {
     try {
-        const { art, description, title, date } = req.body
-        const createdArt = await Art.create({ art, description, title, date, artist: req.user._id })
+        const { description, title, date } = req.body
+        // return res.json(req.file)
+        const imageUrl = req.file.path
+        const createdArt = await Art.create({ image: imageUrl, description, title, date, artist: req.user._id })
         res.status(201).json(createdArt)
     } catch (error) {
         next(error)
