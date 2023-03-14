@@ -40,10 +40,19 @@ router.get('/', async (req, res, next) => {
 // GET one art piece  
 //ROUTE NOT PROTECTED
 
+router.get('/mine', isAuthenticated, isArtist, async (req, res, next) => {
+    try {
+        const artPieces = await Art.find({ artist: req.user._id })
+        res.json(artPieces)
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 router.get('/:id', async (req, res, next) => {
     try {
-        const oneArtPiece = await Art.findById(req.params.id)
+        const oneArtPiece = await Art.findById(req.params.id).populate("artist")
         res.json(oneArtPiece)
     } catch (error) {
         next(error)
@@ -59,7 +68,6 @@ router.use(isArtist)
 
 // Create one art piece
 //ROUTE PROTECTED isArtist = true
-
 
 
 router.post('/', fileUpload.single('image'), async (req, res, next) => {
