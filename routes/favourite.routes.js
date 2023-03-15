@@ -3,13 +3,11 @@ const Favourite = require('./../models/Favourite.model')
 const isAuthenticated = require('../middlewares/isAuthenticated')
 
 
-router.use(isAuthenticated)
-
 
 
 // POST Save an art piece as favourite ROUTE PROTECTED
 
-router.post('/favourites', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     const { artPieceId } = req.body
     const userId = req.user._id
 
@@ -38,7 +36,7 @@ router.post('/favourites', async (req, res, next) => {
 
 // GET Request to get all favourites for a user ROUTE PROTECTED
 
-router.get('/favourites', async (req, res, next) => {
+router.get('/', isAuthenticated, async (req, res, next) => {
     const userId = req.user._id
 
     try {

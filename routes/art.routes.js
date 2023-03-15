@@ -1,5 +1,5 @@
 const router = require('express').Router()
-
+const isUser = require('../middlewares/isUser')
 const isArtist = require('../middlewares/isArtist')
 const isAuthenticated = require('../middlewares/isAuthenticated')
 const Art = require('./../models/Art.model')
@@ -38,7 +38,6 @@ router.get('/', async (req, res, next) => {
 })
 
 // GET one art piece  
-//ROUTE NOT PROTECTED
 
 router.get('/mine', isAuthenticated, isArtist, async (req, res, next) => {
     try {
