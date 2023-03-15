@@ -12,9 +12,9 @@ router.use('/auth', require('./auth.routes'))
 // router.use('/gallery', require('./gallery.routes'))
 
 router.use('/art', require('./art.routes'))
-router.use((req, res, next) => {
-  isAuthenticated(req, res, next)
-})
+// router.use((req, res, next) => {
+//   isAuthenticated(req, res, next)
+// })
 // router.post("/images", fileUpload.single('image'), (req, res, next) => {
 //   console.log(req.file.path);
 //   res.json({ image: req.file.path });

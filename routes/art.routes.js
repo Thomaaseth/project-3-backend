@@ -104,7 +104,7 @@ router.patch('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        await Art.findOneAndDelete({ _id: id, artist: req.user._id })
+        await Art.findOneAndDelete({ _id: req.params.id, artist: req.user._id })
         res.sendStatus(204)
     } catch (error) {
         next(error)
