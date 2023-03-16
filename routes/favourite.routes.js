@@ -7,8 +7,8 @@ const isAuthenticated = require('../middlewares/isAuthenticated')
 
 // POST Save an art piece as favourite ROUTE PROTECTED
 
-router.post('/', async (req, res, next) => {
-    const { artPieceId } = req.body
+router.post(`/:artPieceId`, async (req, res, next) => {
+    const { artPieceId } = req.params
     const userId = req.user._id
 
     try {
@@ -53,8 +53,8 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 
 // DELETE request to remove from favourite ROUTE PROTECTED
 
-router.delete('/favourites/:id', async (req, res, next) => {
-    const { id } = req.params
+router.delete('/:id', async (req, res, next) => {
+    const { artPieceId } = req.params
     const userId = req.user._id
 
     try {
