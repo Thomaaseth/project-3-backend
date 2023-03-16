@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Favourite = require('./../models/Favourite.model')
 const isAuthenticated = require('../middlewares/isAuthenticated')
+const Art = require('../models/Art.model')
 
 
 
@@ -8,22 +9,29 @@ const isAuthenticated = require('../middlewares/isAuthenticated')
 // POST Save an art piece as favourite ROUTE PROTECTED
 
 router.post(`/:artPieceId`, async (req, res, next) => {
-    const { artPieceId } = req.params
-    const userId = req.user._id
-
     try {
-        const newFavourite = new Favourite({
-            user: userId,
-            artPiece: artPieceId,
-        })
+        const { artPieceId } = req.params
+        const userId = req.user._id
 
-        if (!artPieceId) {
+        const artPiece = await Art.findById(artPieceId)
+
+        if (!artPiece) {
             return res
                 .status(404)
                 .json({ message: 'Art piece not found' })
         }
 
-        const savedFavourite = await newFavourite.save()
+
+        const savedFavourite = await Favourite.findOneAndUpdate(
+            {
+                user: userId,
+                artPiece: artPieceId,
+            },
+            {},
+            { upsert: true }
+        )
+
+
         return res
             .status(201)
             .json({ savedFavourite, message: 'Successfully saved as favourite!' })
@@ -53,13 +61,13 @@ router.get('/', isAuthenticated, async (req, res, next) => {
 
 // DELETE request to remove from favourite ROUTE PROTECTED
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:artPieceId', async (req, res, next) => {
     const { artPieceId } = req.params
     const userId = req.user._id
 
     try {
         const favourite = await Favourite.findOneAndDelete({
-            _id: id,
+            artPiece: artPieceId,
             user: userId,
         })
         if (!favourite) {
