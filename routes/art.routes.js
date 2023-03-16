@@ -6,7 +6,7 @@ const fileUpload = require('./../config/cloudinary-config')
 
 // All routes prefixed by '/api/artPiece
 
-// GET Art 
+// GET request to the root endpoint to retrieve all Art in the database collection
 //ROUTE NOT PROTECTED
 
 router.get('/', async (req, res, next) => {
@@ -36,7 +36,7 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-// GET one art piece  
+// Route to return all art pieces created by the authenticated artist
 
 router.get('/mine', isAuthenticated, isArtist, async (req, res, next) => {
     try {
@@ -47,6 +47,7 @@ router.get('/mine', isAuthenticated, isArtist, async (req, res, next) => {
     }
 })
 
+// Route to return a specific single art piece
 
 router.get('/:id', async (req, res, next) => {
     try {
@@ -98,7 +99,7 @@ router.patch('/:id', async (req, res, next) => {
     }
 })
 
-// delete art piece
+// DELETE art piece, only for a specific artist
 
 router.delete('/:id', async (req, res, next) => {
     try {

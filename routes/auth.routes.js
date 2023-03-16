@@ -80,6 +80,8 @@ router.post('/login', async (req, res, next) => {
     }
 })
 
+// PROFILE protected by isAuthenticated middleware
+
 router.get('/profile', isAuthenticated, async (req, res, next) => {
     console.log(req.user)
     res.json(req.user)
